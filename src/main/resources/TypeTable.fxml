@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.TypeTableController">
+   <children>
+      <ImageView fitHeight="1024.0" fitWidth="1280.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@1.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="TypeTable" layoutX="50.0" layoutY="44.0" prefHeight="861.0" prefWidth="618.0" />
+      <Label layoutX="898.0" layoutY="88.0" style="-fx-background-color: #221c7d;" text="รายละเอียดหมวดหมู่" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="717.0" layoutY="374.0" style="-fx-background-color: #221c7d;" text="จำนวนงานส่งต่อ" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="717.0" layoutY="321.0" style="-fx-background-color: #221c7d;" text="จำนวนงานโครงการ" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="717.0" layoutY="274.0" style="-fx-background-color: #221c7d;" text="จำนวนงานรายสัปดาห์" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="717.0" layoutY="226.0" style="-fx-background-color: #221c7d;" text="จำนวนงานทั่วไป" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="AddTypeBtn" layoutX="771.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleAddTypeBtn" text="เพิ่มหมวดหมู่" />
+      <Label fx:id="GTLabel" layoutX="953.0" layoutY="235.0" text="Label" textFill="WHITE" />
+      <Label fx:id="WTLabel" layoutX="953.0" layoutY="283.0" text="Label" textFill="WHITE" />
+      <Label fx:id="PTLabel" layoutX="953.0" layoutY="330.0" text="Label" textFill="WHITE" />
+      <Label fx:id="FTLabel" layoutX="953.0" layoutY="383.0" text="Label" textFill="WHITE" />
+      <Button fx:id="BackBtn" layoutX="1053.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleBackBtn" text="ย้อนกลับ" />
+      <Label layoutX="717.0" layoutY="181.0" style="-fx-background-color: #221c7d;" text="ชื่อหมวดหมู่" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="TNLabel" layoutX="953.0" layoutY="190.0" text="Label" textFill="WHITE" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1024" prefWidth="1280" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PublisherController">
+    <children>
+      <ImageView fitHeight="1024.0" fitWidth="1280.0" layoutY="-4.0" pickOnBounds="true">
+         <image>
+            <Image url="@Presentation1.jpg" />
+         </image>
+      </ImageView>
+        <Label layoutX="615.0" layoutY="63.0" text="ผู้จัดทำ">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="435.0" layoutY="512.0" text="ชื่อ นาย ชวิศ พิภพโสภณชัย ชื่อเล่น แซนวิช รหัสนิสิต 6210451098">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <ImageView fx:id="image" fitHeight="249.0" fitWidth="486.0" layoutX="453.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@IMG_1909.jpg" />
+            </image></ImageView>
+        <Button layoutX="620.0" layoutY="803.0" mnemonicParsing="false" onAction="#handleBackButton" text="Back" />
+    </children>
+</AnchorPane>
