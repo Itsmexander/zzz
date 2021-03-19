@@ -17,61 +17,49 @@ public class Type {
         return typeName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
     public int getTCount() {
         return tCount;
-    }
-
-    public void setTCount(int tCount) {
-        this.tCount = tCount;
     }
 
     public int getFTCount() {
         return fTCount;
     }
 
-    public void setFTCount(int fTCount) {
-        this.fTCount = fTCount;
-    }
-
     public int getWTCount() {
         return wTCount;
-    }
-
-    public void setWTCount(int wTCount) {
-        this.wTCount = wTCount;
     }
 
     public int getPTCount() {
         return pTCount;
     }
 
-    public void setPTCount(int pTCount) {
-        this.pTCount = pTCount;
-    }
-
     public int getSTCount() {
         return sTCount=tCount+pTCount+wTCount+fTCount;
     }
 
-    public void setSTCount(int sTCount) {
-        this.sTCount = sTCount;
-    }
-
-    public void addTcount(){
+    public void addTCount(){
         tCount+=1;
     }
-    public void addPTcount(){
+    public void addPTCount(){
         pTCount+=1;
     }
-    public void addWTcount(){
+    public void addWTCount(){
         wTCount+=1;
     }
-    public void addFTcount(){
+    public void addFTCount(){
         fTCount+=1;
+    }
+    public void removeTcount(){
+        tCount-=1;
+    }
+    public void removePTcount(){
+        pTCount-=1;
+    }
+    public void removeWTcount(){
+        wTCount-=1;
+    }
+    public void removeFTcount(){
+        fTCount-=1;
     }
 
     @Override

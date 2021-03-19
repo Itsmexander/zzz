@@ -29,15 +29,14 @@ public class PTaskTableController {
     private TypeList typeList;
     private ObservableList<ProjectTaskData> taskDataObservableList;
     @FXML private TableView<ProjectTaskData> TaskTable;
-    @FXML private TextField taskNameTextField,ResTexField;
+    @FXML private TextField taskNameTextField,MngTexField;
     @FXML DatePicker sDatePicker;
     @FXML DatePicker fDatePicker;
-    @FXML ChoiceBox<Integer> startHChoiceBox,startMChoiceBox,finishHChoiceBox,finishMChoiceBox;
-    @FXML ChoiceBox<String> typeChoiceBox,priorityChoiceBox,statusChoiceBox;
+    @FXML ChoiceBox<String> typeChoiceBox,priorityChoiceBox,statusChoiceBox,startHChoiceBox,startMChoiceBox,finishHChoiceBox,finishMChoiceBox;
     @FXML private ImageView sampleImage;
     @FXML private Button updateButton;
     @FXML private Button addTaskButton;
-    @FXML private Label TaskLabel,StartLabel,FinishLabel,PriorityLabel,TypeLabel,StatusLabel,ResLabel;
+    @FXML private Label TaskLabel,StartLabel,FinishLabel,PriorityLabel,TypeLabel,StatusLabel,MngLabel,errMsgLabel;
 
     @FXML
     public void initialize() {
@@ -46,13 +45,21 @@ public class PTaskTableController {
             public void run() {
                 dataSource = new ProjectTaskFileDataSource("data", "Ptask.csv");
                 typeFileDataSource = new TypeFileDataSource("data", "type.csv");
-                for (int i = 0; i <= 23; i++) {
-                    startHChoiceBox.getItems().add(i);
-                    finishHChoiceBox.getItems().add(i);
+                for (int i = 0; i <= 9; i++) {
+                    startHChoiceBox.getItems().add("0"+i);
+                    finishHChoiceBox.getItems().add("0"+i);
+                    startMChoiceBox.getItems().add("0"+i);
+                    finishMChoiceBox.getItems().add("0"+i);
                 }
-                for (int i = 0; i <= 59; i++) {
-                    startMChoiceBox.getItems().add(i);
-                    finishMChoiceBox.getItems().add(i);
+                for (int i = 10; i <= 24; i++) {
+                    startHChoiceBox.getItems().add(""+i);
+                    finishHChoiceBox.getItems().add(""+i);
+                    startMChoiceBox.getItems().add(""+i);
+                    finishMChoiceBox.getItems().add(""+i);
+                }
+                for (int i = 25; i <=59 ; i++) {
+                    startMChoiceBox.getItems().add(""+i);
+                    finishMChoiceBox.getItems().add(""+i);
                 }
                 priorityChoiceBox.getItems().addAll("มากที่สุด","มาก","ปานกลาง","น้อย","น้อยที่สุด");
                 statusChoiceBox.getItems().addAll("-","เสร็จแล้ว","กำลังทำ","ยังไม่ทำ");
@@ -61,11 +68,8 @@ public class PTaskTableController {
                 sampleImage.setImage(new Image("/1.jpg"));
                 typeList = typeFileDataSource.getTaskData();
                 for (Type t:typeList.toList())
-                    //System.out.println(t.toString());
                     typeChoiceBox.getItems().add(t.getTypeName());
                 taskList = dataSource.getTaskData();
-/*                for (ProjectTaskData w :taskList.toPList())
-                    System.out.println(w.toString());*/
                 showTaskData();
 
                 TaskTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -88,7 +92,7 @@ public class PTaskTableController {
         configs.add(new StringConfiguration("title:วันและเวลาที่เสร็จ", "field:finish"));
         configs.add(new StringConfiguration("title:ความสำคัญ", "field:priorityLevel"));
         configs.add(new StringConfiguration("title:สถานะ", "field:workStatus"));
-        configs.add(new StringConfiguration("title:หัวหน้างาน", "field:responsibleName"));
+        configs.add(new StringConfiguration("title:หัวหน้าโครงการ", "field:managerName"));
 
         for (StringConfiguration conf: configs) {
             TableColumn col = new TableColumn(conf.get("title"));
@@ -106,9 +110,9 @@ public class PTaskTableController {
         PriorityLabel.setText(taskData.getPriorityLevel());
         StatusLabel.setText(taskData.getWorkStatus());
         TypeLabel.setText(taskData.getType());
-        ResLabel.setText(taskData.getResponsibleName());
+        MngLabel.setText(taskData.getManagerName());
         taskNameTextField.setText(taskData.getTaskName());
-        ResTexField.setText(taskData.getResponsibleName());
+        MngTexField.setText(taskData.getManagerName());
         updateButton.setDisable(false);
         }
 
@@ -120,25 +124,38 @@ public class PTaskTableController {
         PriorityLabel.setText("");
         StatusLabel.setText("");
         TypeLabel.setText("");
-        ResLabel.setText("");
+        MngLabel.setText("");
         taskNameTextField.clear();
-        ResTexField.clear();
+        MngTexField.clear();
         updateButton.setDisable(true);
     }
 
     @FXML
     public void handleUpdateButton(ActionEvent event) {
-        selectedTask.setTaskName(taskNameTextField.getText());
-        selectedTask.setType(typeChoiceBox.getValue());
-        selectedTask.setStart(sDatePicker.getValue().atTime(startHChoiceBox.getValue(),startMChoiceBox.getValue()).format(ofPattern("yyyy-MM-dd HH:mm")));
-        selectedTask.setFinish(fDatePicker.getValue().atTime(finishHChoiceBox.getValue(),finishMChoiceBox.getValue()).format(ofPattern("yyyy-MM-dd HH:mm")));
-        selectedTask.setWorkStatus(statusChoiceBox.getValue());
-        selectedTask.setPriorityLevel(priorityChoiceBox.getValue());
-        selectedTask.setResponsibleName(ResTexField.getText());
-        clearSelectedTask();
-        TaskTable.refresh();
-        TaskTable.getSelectionModel().clearSelection();
-        dataSource.setFileData(taskList);
+        if ((taskNameTextField.getText() == null)||(typeChoiceBox.getValue()==null)||(sDatePicker.getValue()==null)||(fDatePicker.getValue()==null)||(startHChoiceBox.getValue()==null)||(startMChoiceBox.getValue()==null)||(finishHChoiceBox.getValue()==null)||(finishMChoiceBox.getValue()==null)||(typeChoiceBox.getValue()==null)||(priorityChoiceBox.getValue()==null)||(MngTexField.getText()==null)){
+            errMsgLabel.setText("โปรดกรอกข้อมูลให้ครบก่อนจะกดปุ่มอัพเดท");
+
+        }
+        else {
+            if (((sDatePicker.getValue().atTime(Integer.parseInt(startHChoiceBox.getValue()), Integer.parseInt(startMChoiceBox.getValue()))).isAfter(fDatePicker.getValue().atTime(Integer.parseInt(finishHChoiceBox.getValue()),Integer.parseInt(finishMChoiceBox.getValue()))))){
+                errMsgLabel.setText("วัน-เวลาเริ่มต้นอยู่หลังวัน-เวลาสิ้นสุด");
+                }
+            else {
+                selectedTask.setTaskName(taskNameTextField.getText());
+                selectedTask.setType(typeChoiceBox.getValue());
+                selectedTask.setStart(sDatePicker.getValue().atTime(Integer.parseInt(startHChoiceBox.getValue()), Integer.parseInt(startMChoiceBox.getValue())).format(ofPattern("HH:mm dd-MM-yyyy")));
+                selectedTask.setFinish(fDatePicker.getValue().atTime(Integer.parseInt(finishHChoiceBox.getValue()), Integer.parseInt(finishMChoiceBox.getValue())).format(ofPattern("HH:mm dd-MM-yyyy")));
+                selectedTask.setWorkStatus(statusChoiceBox.getValue());
+                selectedTask.setPriorityLevel(priorityChoiceBox.getValue());
+                selectedTask.setManagerName(MngTexField.getText());
+                typeList.changeSelectedTypeCount(selectedTask.getType(),typeChoiceBox.getValue(),"Project");
+                clearSelectedTask();
+                TaskTable.refresh();
+                TaskTable.getSelectionModel().clearSelection();
+                dataSource.setFileData(taskList);
+                typeFileDataSource.setFileData(typeList);
+            }
+        }
     }
 
     @FXML
@@ -153,10 +170,12 @@ public class PTaskTableController {
     @FXML
     public void handleAddTaskButton(ActionEvent event){
         TaskTable.getColumns().clear();
-        ProjectTaskData p1 = new ProjectTaskData("ชื่องาน","-","2021-02-28 00:00","2021-03-01 00:00",
+        ProjectTaskData p1 = new ProjectTaskData("ชื่องาน","-","00:00 28-02-2021","00:00 01-03-2021",
                 "ปานกลาง","ยังไม่ทำ","-");
         taskList.addPList(p1);
+        typeList.addSelectedTypeCount("-","Project");
         dataSource.setFileData(taskList);
+        typeFileDataSource.setFileData(typeList);
         TaskTable.refresh();
         showTaskData();
     }

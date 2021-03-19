@@ -1,116 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.TaskTableController">
+<AnchorPane prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.TaskTableController">
    <children>
       <ImageView fx:id="sampleImage" fitHeight="1024.0" fitWidth="1280.0" opacity="0.8" pickOnBounds="true">
             <Image url="@1.jpg" />
          </ImageView>
-      <TableView fx:id="TaskTable" layoutX="38.0" layoutY="38.0" prefHeight="946.0" prefWidth="543.0" />
-      <Label layoutX="851.0" layoutY="52.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="รายละเอียดงาน" textFill="WHITE">
+      <TableView fx:id="TaskTable" layoutX="38.0" layoutY="38.0" prefHeight="946.0" prefWidth="677.0" />
+      <Label layoutX="986.0" layoutY="52.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="รายละเอียดงาน" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="451.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ชื่องาน" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="451.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ชื่องาน" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="494.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เริ่ม" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="494.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เริ่ม" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="620.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="สถานะงาน" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="620.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="สถานะงาน" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="577.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ระดับความสำคัญของงาน" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="577.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ระดับความสำคัญของงาน" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="836.0" layoutY="731.0" mnemonicParsing="false" onAction="#handleHomeButton" prefHeight="33.0" prefWidth="94.0" text="Home">
+      <Button layoutX="971.0" layoutY="731.0" mnemonicParsing="false" onAction="#handleHomeButton" prefHeight="33.0" prefWidth="94.0" text="Home">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Button>
-      <TextField fx:id="taskNameTextField" layoutX="687.0" layoutY="456.0" />
-      <DatePicker fx:id="sDatePicker" layoutX="736.0" layoutY="499.0" />
-      <Label layoutX="620.0" layoutY="537.0" prefHeight="33.0" prefWidth="119.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เสร็จ" textFill="WHITE">
+      <TextField fx:id="taskNameTextField" layoutX="822.0" layoutY="456.0" />
+      <DatePicker fx:id="sDatePicker" layoutX="871.0" layoutY="499.0" />
+      <Label layoutX="755.0" layoutY="537.0" prefHeight="33.0" prefWidth="119.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เสร็จ" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <DatePicker fx:id="fDatePicker" layoutX="747.0" layoutY="541.0" />
-      <ChoiceBox fx:id="startHChoiceBox" layoutX="927.0" layoutY="499.0" prefHeight="25.0" prefWidth="45.0" />
-      <ChoiceBox fx:id="finishMChoiceBox" layoutX="1002.0" layoutY="542.0" prefHeight="25.0" prefWidth="45.0" />
-      <ChoiceBox fx:id="startMChoiceBox" layoutX="991.0" layoutY="499.0" prefHeight="25.0" prefWidth="45.0" />
-      <ChoiceBox fx:id="finishHChoiceBox" layoutX="938.0" layoutY="542.0" prefHeight="25.0" prefWidth="45.0" />
-      <ChoiceBox fx:id="priorityChoiceBox" layoutX="794.0" layoutY="582.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="statusChoiceBox" layoutX="713.0" layoutY="625.0" prefWidth="150.0" />
-      <Button fx:id="updateButton" layoutX="730.0" layoutY="731.0" mnemonicParsing="false" onAction="#handleUpdateButton" prefHeight="33.0" prefWidth="94.0" text="อัพเดท">
+      <DatePicker fx:id="fDatePicker" layoutX="882.0" layoutY="541.0" />
+      <ChoiceBox fx:id="startHChoiceBox" layoutX="1062.0" layoutY="499.0" prefHeight="25.0" prefWidth="45.0" />
+      <ChoiceBox fx:id="finishMChoiceBox" layoutX="1137.0" layoutY="542.0" prefHeight="25.0" prefWidth="45.0" />
+      <ChoiceBox fx:id="startMChoiceBox" layoutX="1126.0" layoutY="499.0" prefHeight="25.0" prefWidth="45.0" />
+      <ChoiceBox fx:id="finishHChoiceBox" layoutX="1073.0" layoutY="542.0" prefHeight="25.0" prefWidth="45.0" />
+      <ChoiceBox fx:id="priorityChoiceBox" layoutX="929.0" layoutY="582.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="statusChoiceBox" layoutX="848.0" layoutY="625.0" prefWidth="150.0" />
+      <Button fx:id="updateButton" layoutX="865.0" layoutY="731.0" mnemonicParsing="false" onAction="#handleUpdateButton" prefHeight="33.0" prefWidth="94.0" text="อัพเดท">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="addTaskButton" layoutX="626.0" layoutY="731.0" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="33.0" prefWidth="94.0" text="เพิ่มงาน">
+      <Button fx:id="addTaskButton" layoutX="761.0" layoutY="731.0" mnemonicParsing="false" onAction="#handleAddTaskButton" prefHeight="33.0" prefWidth="94.0" text="เพิ่มงาน">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Button>
-      <Label layoutX="620.0" layoutY="88.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ชื่องาน" textFill="#f2f2f2">
+      <Label layoutX="755.0" layoutY="88.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ชื่องาน" textFill="#f2f2f2">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="131.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เริ่ม" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="131.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เริ่ม" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="300.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="สถานะงาน" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="300.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="สถานะงาน" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="214.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ระดับความสำคัญของงาน" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="214.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ระดับความสำคัญของงาน" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="620.0" layoutY="174.0" prefHeight="33.0" prefWidth="119.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เสร็จ" textFill="WHITE">
+      <Label layoutX="755.0" layoutY="174.0" prefHeight="33.0" prefWidth="119.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="วันและเวลาที่เสร็จ" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="TaskLabel" layoutX="706.0" layoutY="96.0" textFill="WHITE" />
-      <Label fx:id="StartLabel" layoutX="763.0" layoutY="139.0" textFill="WHITE" />
-      <Label fx:id="FinishLabel" layoutX="763.0" layoutY="182.0" textFill="WHITE" />
-      <Label fx:id="PriorityLabel" layoutX="809.0" layoutY="222.0" textFill="WHITE" />
-      <Label fx:id="StatusLabel" layoutX="717.0" layoutY="308.0" textFill="WHITE" />
-      <Label layoutX="620.0" layoutY="664.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="หมวดหมู่" textFill="WHITE">
+      <Label fx:id="TaskLabel" layoutX="841.0" layoutY="96.0" textFill="WHITE" />
+      <Label fx:id="StartLabel" layoutX="898.0" layoutY="139.0" textFill="WHITE" />
+      <Label fx:id="FinishLabel" layoutX="898.0" layoutY="182.0" textFill="WHITE" />
+      <Label fx:id="PriorityLabel" layoutX="944.0" layoutY="222.0" textFill="WHITE" />
+      <Label fx:id="StatusLabel" layoutX="852.0" layoutY="308.0" textFill="WHITE" />
+      <Label layoutX="755.0" layoutY="664.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="หมวดหมู่" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="typeChoiceBox" layoutX="713.0" layoutY="669.0" prefWidth="150.0" />
-      <Label layoutX="620.0" layoutY="257.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="หมวดหมู่" textFill="WHITE">
+      <ChoiceBox fx:id="typeChoiceBox" layoutX="848.0" layoutY="669.0" prefWidth="150.0" />
+      <Label layoutX="755.0" layoutY="257.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="หมวดหมู่" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="TypeLabel" layoutX="720.0" layoutY="265.0" textFill="WHITE" />
-      <Label layoutX="870.0" layoutY="406.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="แก้ไขงาน" textFill="WHITE">
+      <Label fx:id="TypeLabel" layoutX="855.0" layoutY="265.0" textFill="WHITE" />
+      <Label layoutX="1005.0" layoutY="406.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="แก้ไขงาน" textFill="WHITE">
          <font>
             <Font name="Angsana New" size="24.0" />
          </font>
       </Label>
+      <Label fx:id="errMsgLabel" layoutX="898.0" layoutY="705.0" style="-fx-background-color: red; -fx-background-radius: 10;" textFill="WHITE" />
    </children>
 </AnchorPane>

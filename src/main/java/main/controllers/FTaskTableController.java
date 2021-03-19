@@ -31,12 +31,11 @@ public class FTaskTableController {
     @FXML private TextField taskNameTextField,ResTexField;
     @FXML DatePicker sDatePicker;
     @FXML DatePicker fDatePicker;
-    @FXML ChoiceBox<Integer> startHChoiceBox,startMChoiceBox,finishHChoiceBox,finishMChoiceBox;
-    @FXML ChoiceBox<String> typeChoiceBox,priorityChoiceBox,statusChoiceBox;
+    @FXML ChoiceBox<String> typeChoiceBox,priorityChoiceBox,statusChoiceBox,startHChoiceBox,startMChoiceBox,finishHChoiceBox,finishMChoiceBox;
     @FXML private ImageView sampleImage;
     @FXML private Button updateButton;
     @FXML private Button addTaskButton;
-    @FXML private Label TaskLabel,StartLabel,FinishLabel,PriorityLabel,TypeLabel,StatusLabel,ResLabel;
+    @FXML private Label TaskLabel,StartLabel,FinishLabel,PriorityLabel,TypeLabel,StatusLabel,ResLabel,errMsgLabel;
 
     @FXML
     public void initialize() {
@@ -47,13 +46,21 @@ public class FTaskTableController {
                 typeFileDataSource = new TypeFileDataSource("data", "type.csv");
                 typeList = typeFileDataSource.getTaskData();
                 taskList = dataSource.getTaskData();
-                for (int i = 0; i <= 23; i++) {
-                    startHChoiceBox.getItems().add(i);
-                    finishHChoiceBox.getItems().add(i);
+                for (int i = 0; i <= 9; i++) {
+                    startHChoiceBox.getItems().add("0"+i);
+                    finishHChoiceBox.getItems().add("0"+i);
+                    startMChoiceBox.getItems().add("0"+i);
+                    finishMChoiceBox.getItems().add("0"+i);
                 }
-                for (int i = 0; i <= 59; i++) {
-                    startMChoiceBox.getItems().add(i);
-                    finishMChoiceBox.getItems().add(i);
+                for (int i = 10; i <= 24; i++) {
+                    startHChoiceBox.getItems().add(""+i);
+                    finishHChoiceBox.getItems().add(""+i);
+                    startMChoiceBox.getItems().add(""+i);
+                    finishMChoiceBox.getItems().add(""+i);
+                }
+                for (int i = 25; i <=59 ; i++) {
+                    startMChoiceBox.getItems().add(""+i);
+                    finishMChoiceBox.getItems().add(""+i);
                 }
                 priorityChoiceBox.getItems().addAll("มากที่สุด","มาก","ปานกลาง","น้อย","น้อยที่สุด");
                 statusChoiceBox.getItems().addAll("-","เสร็จแล้ว","กำลังทำ","ยังไม่ทำ");
@@ -126,17 +133,29 @@ public class FTaskTableController {
 
     @FXML
     public void handleUpdateButton(ActionEvent event) {
-        selectedTask.setTaskName(taskNameTextField.getText());
-        selectedTask.setType(typeChoiceBox.getValue());
-        selectedTask.setStart(sDatePicker.getValue().atTime(startHChoiceBox.getValue(),startMChoiceBox.getValue()).format(ofPattern("yyyy-MM-dd HH:mm")));
-        selectedTask.setFinish(fDatePicker.getValue().atTime(finishHChoiceBox.getValue(),finishMChoiceBox.getValue()).format(ofPattern("yyyy-MM-dd HH:mm")));
-        selectedTask.setWorkStatus(statusChoiceBox.getValue());
-        selectedTask.setPriorityLevel(priorityChoiceBox.getValue());
-        selectedTask.setResponsibleName(ResTexField.getText());
-        clearSelectedTask();
-        TaskTable.refresh();
-        TaskTable.getSelectionModel().clearSelection();
-        dataSource.setFileData(taskList);
+        if ((taskNameTextField.getText() == null)||(typeChoiceBox.getValue()==null)||(sDatePicker.getValue()==null)||(fDatePicker.getValue()==null)||(startHChoiceBox.getValue()==null)||(startMChoiceBox.getValue()==null)||(finishHChoiceBox.getValue()==null)||(finishMChoiceBox.getValue()==null)||(typeChoiceBox.getValue()==null)||(priorityChoiceBox.getValue()==null)||(ResTexField.getText()==null)){
+            errMsgLabel.setText("โปรดกรอกข้อมูลให้ครบก่อนจะกดปุ่มอัพเดท");
+
+        }
+        else {
+            if (((sDatePicker.getValue().atTime(Integer.parseInt(startHChoiceBox.getValue()), Integer.parseInt(startMChoiceBox.getValue()))).isAfter(fDatePicker.getValue().atTime(Integer.parseInt(finishHChoiceBox.getValue()),Integer.parseInt(finishMChoiceBox.getValue()))))){
+                errMsgLabel.setText("วัน-เวลาเริ่มต้นอยู่หลังวัน-เวลาสิ้นสุด");
+                }
+            else {
+                selectedTask.setTaskName(taskNameTextField.getText());
+                selectedTask.setType(typeChoiceBox.getValue());
+                selectedTask.setStart(sDatePicker.getValue().atTime(Integer.parseInt(startHChoiceBox.getValue()), Integer.parseInt(startMChoiceBox.getValue())).format(ofPattern("HH:mm dd-MM-yyyy")));
+                selectedTask.setFinish(fDatePicker.getValue().atTime(Integer.parseInt(finishHChoiceBox.getValue()), Integer.parseInt(finishMChoiceBox.getValue())).format(ofPattern("HH:mm dd-MM-yyyy")));
+                selectedTask.setWorkStatus(statusChoiceBox.getValue());
+                selectedTask.setPriorityLevel(priorityChoiceBox.getValue());
+                selectedTask.setResponsibleName(ResTexField.getText());
+                typeList.changeSelectedTypeCount(selectedTask.getType(),typeChoiceBox.getValue(),"Forwarding");
+                clearSelectedTask();
+                TaskTable.refresh();
+                TaskTable.getSelectionModel().clearSelection();
+                dataSource.setFileData(taskList);
+            }
+        }
     }
 
     @FXML
@@ -151,10 +170,12 @@ public class FTaskTableController {
     @FXML
     public void handleAddTaskButton(ActionEvent event){
         TaskTable.getColumns().clear();
-        ForwardingTaskData p1 = new ForwardingTaskData("ชื่องาน","-","2021-02-28 00:00","2021-03-01 00:00",
+        ForwardingTaskData p1 = new ForwardingTaskData("ชื่องาน","-","00:00 28-02-2021","00:00 01-03-2021",
                 "ปานกลาง","ยังไม่ทำ","-");
+        typeList.addSelectedTypeCount("-","Forwarding");
         taskList.addFList(p1);
         dataSource.setFileData(taskList);
+        typeFileDataSource.setFileData(typeList);
         TaskTable.refresh();
         showTaskData();
     }

@@ -23,7 +23,7 @@ public class WeeklyTaskData extends TaskData{
                 ", finish=" + getFinish() +
                 ", priorityLevel='" + getPriorityLevel() + '\'' +
                 ", workStatus='" + getWorkStatus() + '\'' +
-                ", day='" + day + '\'' +
+                "day='" + day + '\'' +
                 '}';
     }
 }

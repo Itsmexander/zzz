@@ -37,4 +37,38 @@ public class TaskList {
     public ArrayList<ForwardingTaskData> toFList(){
         return forwardingTaskList;
     }
+    public ArrayList<TaskData> allWork(){
+        ArrayList<TaskData> AW = new ArrayList<>();
+        AW.addAll(taskList);
+        AW.addAll(weeklyTaskList);
+        AW.addAll(projectTaskList);
+        AW.addAll(forwardingTaskList);
+        return AW;
+    }
+
+    public ArrayList<TaskData> allWorkInType(String type){
+        ArrayList<TaskData> AW = new ArrayList<>();
+        for (TaskData t:allWork()) {
+            if (t.getType().equals(type)){
+                AW.add(t);
+            }
+        }
+        return AW;
+    }
+
+    public void setTaskList(ArrayList<TaskData> taskList) {
+        this.taskList = taskList;
+    }
+
+    public void setWeeklyTaskList(ArrayList<WeeklyTaskData> weeklyTaskList) {
+        this.weeklyTaskList = weeklyTaskList;
+    }
+
+    public void setProjectTaskList(ArrayList<ProjectTaskData> projectTaskList) {
+        this.projectTaskList = projectTaskList;
+    }
+
+    public void setForwardingTaskList(ArrayList<ForwardingTaskData> forwardingTaskList) {
+        this.forwardingTaskList = forwardingTaskList;
+    }
 }

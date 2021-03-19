@@ -8,6 +8,14 @@ public class TaskData {
     private String priorityLevel;
     private String workStatus;
 
+    public TaskData(String taskName, String type, String start, String finish, String priorityLevel) {
+        this.taskName = taskName;
+        this.type = type;
+        this.start = start;
+        this.finish = finish;
+        this.priorityLevel = priorityLevel;
+    }
+
     public TaskData(String taskName, String type, String start, String finish, String priorityLevel, String workStatus) {
         this.taskName = taskName;
         this.type = type;

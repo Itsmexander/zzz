@@ -8,7 +8,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXRouter.bind(this,primaryStage,"Task Tracker v0.1",1280,1024);
+        FXRouter.bind(this,primaryStage,"Task Tracker v1.0b",1280,1024);
 
         configRoute();
 
@@ -18,6 +18,7 @@ public class Main extends Application {
 
     private static void configRoute() {
         FXRouter.when("home", "home.fxml");
+        FXRouter.when("Help", "Help.fxml");
         FXRouter.when("publisher", "publisher.fxml");
         FXRouter.when("taskTable", "TaskTable.fxml");
         FXRouter.when("weekTable", "WTaskTable.fxml");

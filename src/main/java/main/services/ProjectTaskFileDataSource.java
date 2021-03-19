@@ -69,7 +69,7 @@ public class ProjectTaskFileDataSource implements TaskFileDataSource_I {
             BufferedWriter writer = new BufferedWriter(fileWriter);
             for (ProjectTaskData data: projectTaskList.toPList()) {
                 String line = data.getTaskName()+","+data.getType()+","+data.getStart()+","+data.getFinish()
-                        +","+data.getPriorityLevel()+","+data.getWorkStatus()+","+data.getResponsibleName();
+                        +","+data.getPriorityLevel()+","+data.getWorkStatus()+","+data.getManagerName();
 //                String line = data.getTaskName()+","+data.getType()+","+data.getStart()+","+data.getFinish()
 //                        +","+data.getPriorityLevel()+","+data.getWorkStatus()+","+data.getResponsibleName();
                 writer.append(line);

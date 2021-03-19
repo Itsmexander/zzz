@@ -14,7 +14,7 @@
             <Image url="@1.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="616.0" layoutY="756.0" mnemonicParsing="false" onAction="#handlePublisherButton" text="ผู้จัดทำ" />
+      <Button layoutX="685.0" layoutY="758.0" mnemonicParsing="false" onAction="#handlePublisherButton" prefHeight="26.0" prefWidth="60.0" text="Credits" />
       <Label alignment="CENTER" layoutX="451.0" layoutY="84.0" prefHeight="91.0" prefWidth="380.0" style="-fx-background-color: #221c7d; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: white; -fx-border-width: 2.5;" text="Task Tracker" textFill="WHITE">
          <font>
             <Font name="Comic Sans MS" size="34.0" />
@@ -45,5 +45,6 @@
             <Font size="24.0" />
          </font>
       </Button>
+      <Button layoutX="535.0" layoutY="758.0" mnemonicParsing="false" onAction="#handleHelpBTN" prefHeight="25.0" prefWidth="60.0" text="help" />
    </children>
 </AnchorPane>

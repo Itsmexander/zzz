@@ -30,12 +30,11 @@ public class WTaskTableController{
     private String dayS="";
     @FXML private TableView<WeeklyTaskData> TaskTable;
     @FXML private TextField taskNameTextField;
-    @FXML ChoiceBox<Integer> startHChoiceBox,startMChoiceBox,finishHChoiceBox,finishMChoiceBox;
-    @FXML ChoiceBox<String> typeChoiceBox,priorityChoiceBox,statusChoiceBox;
+    @FXML ChoiceBox<String> typeChoiceBox,priorityChoiceBox,statusChoiceBox,startHChoiceBox,startMChoiceBox,finishHChoiceBox,finishMChoiceBox;
     @FXML private ImageView sampleImage;
     @FXML private Button updateButton;
     @FXML private Button addTaskButton;
-    @FXML private Label TaskLabel,StartLabel,FinishLabel,PriorityLabel,TypeLabel,StatusLabel,DaysLabel;
+    @FXML private Label TaskLabel,StartLabel,FinishLabel,PriorityLabel,TypeLabel,StatusLabel,DaysLabel,errMsgLabel;
     @FXML private CheckBox MonChkBox,TueChkBox,WedChkBox,ThuChkBox,FriChkBox,SatChkBox,SunChkBox;
 
     public WTaskTableController() {
@@ -50,13 +49,21 @@ public class WTaskTableController{
                 typeFileDataSource = new TypeFileDataSource("data", "type.csv");
                 typeList = typeFileDataSource.getTaskData();
                 taskList = weeklyTaskFileDataSource.getTaskData();
-                for (int i = 0; i <= 10; i++) {
-                    startHChoiceBox.getItems().add(i);
-                    finishHChoiceBox.getItems().add(i);
+                for (int i = 0; i <= 9; i++) {
+                    startHChoiceBox.getItems().add("0"+i);
+                    finishHChoiceBox.getItems().add("0"+i);
+                    startMChoiceBox.getItems().add("0"+i);
+                    finishMChoiceBox.getItems().add("0"+i);
                 }
-                for (int i = 0; i <= 59; i++) {
-                    startMChoiceBox.getItems().add(i);
-                    finishMChoiceBox.getItems().add(i);
+                for (int i = 10; i <= 24; i++) {
+                    startHChoiceBox.getItems().add(""+i);
+                    finishHChoiceBox.getItems().add(""+i);
+                    startMChoiceBox.getItems().add(""+i);
+                    finishMChoiceBox.getItems().add(""+i);
+                }
+                for (int i = 25; i <=59 ; i++) {
+                    startMChoiceBox.getItems().add(""+i);
+                    finishMChoiceBox.getItems().add(""+i);
                 }
                 priorityChoiceBox.getItems().addAll("มากที่สุด","มาก","ปานกลาง","น้อย","น้อยที่สุด");
                 statusChoiceBox.getItems().addAll("-","เสร็จแล้ว","กำลังทำ","ยังไม่ทำ");
@@ -147,33 +154,80 @@ public class WTaskTableController{
 
     @FXML
     public void handleUpdateButton(ActionEvent event) {
-        selectedWTask.setTaskName(taskNameTextField.getText());
-        selectedWTask.setType(typeChoiceBox.getValue());
-        selectedWTask.setStart(startHChoiceBox.getValue()+":"+startMChoiceBox.getValue());
-        selectedWTask.setFinish(finishHChoiceBox.getValue()+":"+finishMChoiceBox.getValue());
-        selectedWTask.setWorkStatus(statusChoiceBox.getValue());
-        selectedWTask.setPriorityLevel(priorityChoiceBox.getValue());
-        if (MonChkBox.isSelected())dayA.add("Mon");
-        if (TueChkBox.isSelected())dayA.add("Tue");
-        if (WedChkBox.isSelected())dayA.add("Wed");
-        if (ThuChkBox.isSelected())dayA.add("Thu");
-        if (FriChkBox.isSelected())dayA.add("Fri");
-        if (SatChkBox.isSelected())dayA.add("Sat");
-        if (SunChkBox.isSelected())dayA.add("Sun");
-        while (!dayA.isEmpty()){
-            dayS=dayS+dayA.get(0);
-            dayA.remove(0);
-            if(dayA.isEmpty()){
-                break;
+        if (Integer.parseInt(startHChoiceBox.getValue())< Integer.parseInt(finishHChoiceBox.getValue())){
+            if ((!MonChkBox.isSelected())&&(!TueChkBox.isSelected())&&(!WedChkBox.isSelected())&&(!ThuChkBox.isSelected())&&(!FriChkBox.isSelected())&&(!SatChkBox.isSelected())&&(!SunChkBox.isSelected())){
+                errMsgLabel.setText("โปรดเลือกวัน");
             }
-            dayS=dayS+"-";
+            else {
+                dayA.clear();
+                selectedWTask.setTaskName(taskNameTextField.getText());
+                selectedWTask.setType(typeChoiceBox.getValue());
+                selectedWTask.setStart(Integer.parseInt(startHChoiceBox.getValue())+":"+Integer.parseInt(startMChoiceBox.getValue()));
+                selectedWTask.setFinish(Integer.parseInt(finishHChoiceBox.getValue())+":"+Integer.parseInt(finishMChoiceBox.getValue()));
+                selectedWTask.setPriorityLevel(priorityChoiceBox.getValue());
+                if (MonChkBox.isSelected()) dayA.add("Mon");
+                if (TueChkBox.isSelected()) dayA.add("Tue");
+                if (WedChkBox.isSelected()) dayA.add("Wed");
+                if (ThuChkBox.isSelected()) dayA.add("Thu");
+                if (FriChkBox.isSelected()) dayA.add("Fri");
+                if (SatChkBox.isSelected()) dayA.add("Sat");
+                if (SunChkBox.isSelected()) dayA.add("Sun");
+                for (int i = 0; i <=dayA.size() ; i++) {
+                    dayS = dayS+dayA.get(0);
+                    dayA.remove(0);;
+                    if (!dayA.isEmpty()){
+                        dayS = dayS + "-";
+                    }
+                }
+                selectedWTask.setDay(dayS);
+                typeList.changeSelectedTypeCount(selectedWTask.getType(),typeChoiceBox.getValue(),"Weekly");
+                clearSelectedTask();
+                TaskTable.refresh();
+                TaskTable.getSelectionModel().clearSelection();
+                weeklyTaskFileDataSource.setFileData(taskList);
+                typeFileDataSource.setFileData(typeList);
+            }
         }
-        selectedWTask.setDay(dayS);
-        clearSelectedTask();
-        TaskTable.refresh();
-        TaskTable.getSelectionModel().clearSelection();
-        weeklyTaskFileDataSource.setFileData(taskList);
+        else if (Integer.parseInt(startHChoiceBox.getValue())== Integer.parseInt(finishHChoiceBox.getValue())){
+            if (Integer.parseInt(startMChoiceBox.getValue())< Integer.parseInt(finishMChoiceBox.getValue())) {
+                if ((!MonChkBox.isSelected())&&(!TueChkBox.isSelected())&&(!WedChkBox.isSelected())&&(!ThuChkBox.isSelected())&&(!FriChkBox.isSelected())&&(!SatChkBox.isSelected())&&(!SunChkBox.isSelected())){
+                    errMsgLabel.setText("โปรดเลือกวัน");
+                }
+                else {
+                    selectedWTask.setTaskName(taskNameTextField.getText());
+                    selectedWTask.setType(typeChoiceBox.getValue());
+                    selectedWTask.setStart(Integer.parseInt(startHChoiceBox.getValue())+":"+Integer.parseInt(startMChoiceBox.getValue()));
+                    selectedWTask.setFinish(Integer.parseInt(finishHChoiceBox.getValue())+":"+Integer.parseInt(finishMChoiceBox.getValue()));
+                    selectedWTask.setPriorityLevel(priorityChoiceBox.getValue());
+                    if (MonChkBox.isSelected()) dayA.add("Mon");
+                    if (TueChkBox.isSelected()) dayA.add("Tue");
+                    if (WedChkBox.isSelected()) dayA.add("Wed");
+                    if (ThuChkBox.isSelected()) dayA.add("Thu");
+                    if (FriChkBox.isSelected()) dayA.add("Fri");
+                    if (SatChkBox.isSelected()) dayA.add("Sat");
+                    if (SunChkBox.isSelected()) dayA.add("Sun");
+                    for (int i = 0; i <=dayA.size() ; i++) {
+                        dayS = dayS+dayA.get(0);
+                        dayA.remove(0);;
+                        if (!dayA.isEmpty()){
+                            dayS = dayS + "-";
+                        }
+                    }
+                    selectedWTask.setDay(dayS);
+                    typeList.changeSelectedTypeCount(selectedWTask.getType(),typeChoiceBox.getValue(),"Weekly");
+                    clearSelectedTask();
+                    TaskTable.refresh();
+                    TaskTable.getSelectionModel().clearSelection();
+                    weeklyTaskFileDataSource.setFileData(taskList);
+                    typeFileDataSource.setFileData(typeList);
+                }
+            }
+        }
+        else {
+            errMsgLabel.setText("เวลาเริ่มต้นอยู่หลังเวลาสิ้นสุด");
+        }
     }
+
 
     @FXML
     public void handleHomeButton(ActionEvent event){
@@ -189,7 +243,9 @@ public class WTaskTableController{
         TaskTable.getColumns().clear();
         WeeklyTaskData n1 = new WeeklyTaskData("ชื่องาน","-","00:00","00:00",
                 "ปานกลาง","ยังไม่ทำ","-");
+        typeList.addSelectedTypeCount("-","Weekly");
         taskList.addWList(n1);
+        typeFileDataSource.setFileData(typeList);
         weeklyTaskFileDataSource.setFileData(taskList);
         TaskTable.refresh();
         showTaskData();

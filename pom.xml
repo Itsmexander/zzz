@@ -14,8 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <out.folder>Task Tracker</out.folder>
-        <out.filename>Task Tracker</out.filename>
-        <project.mainClass>main.main</project.mainClass>
+        <out.filename>6210451098</out.filename>
+        <project.mainClass>main.Main</project.mainClass>
     </properties>
 
     <dependencies>

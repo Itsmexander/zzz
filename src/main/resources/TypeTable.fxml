@@ -15,43 +15,44 @@
             <Image url="@1.jpg" />
          </image>
       </ImageView>
-      <TableView fx:id="TypeTable" layoutX="50.0" layoutY="44.0" prefHeight="861.0" prefWidth="618.0" />
-      <Label layoutX="898.0" layoutY="88.0" style="-fx-background-color: #221c7d;" text="รายละเอียดหมวดหมู่" textFill="WHITE">
+      <TableView fx:id="TypeTable" layoutX="83.0" layoutY="123.0" prefHeight="380.0" prefWidth="500.0" />
+      <Label layoutX="825.0" layoutY="96.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="รายละเอียดหมวดหมู่" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="717.0" layoutY="374.0" style="-fx-background-color: #221c7d;" text="จำนวนงานส่งต่อ" textFill="WHITE">
+      <Label layoutX="640.0" layoutY="332.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="จำนวนงานส่งต่อ" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="717.0" layoutY="321.0" style="-fx-background-color: #221c7d;" text="จำนวนงานโครงการ" textFill="WHITE">
+      <Label layoutX="640.0" layoutY="279.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="จำนวนงานโครงการ" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="717.0" layoutY="274.0" style="-fx-background-color: #221c7d;" text="จำนวนงานรายสัปดาห์" textFill="WHITE">
+      <Label layoutX="640.0" layoutY="232.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="จำนวนงานรายสัปดาห์" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="717.0" layoutY="226.0" style="-fx-background-color: #221c7d;" text="จำนวนงานทั่วไป" textFill="WHITE">
+      <Label layoutX="640.0" layoutY="184.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="จำนวนงานทั่วไป" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="AddTypeBtn" layoutX="771.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleAddTypeBtn" text="เพิ่มหมวดหมู่" />
-      <Label fx:id="GTLabel" layoutX="953.0" layoutY="235.0" text="Label" textFill="WHITE" />
-      <Label fx:id="WTLabel" layoutX="953.0" layoutY="283.0" text="Label" textFill="WHITE" />
-      <Label fx:id="PTLabel" layoutX="953.0" layoutY="330.0" text="Label" textFill="WHITE" />
-      <Label fx:id="FTLabel" layoutX="953.0" layoutY="383.0" text="Label" textFill="WHITE" />
-      <Button fx:id="BackBtn" layoutX="1053.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleBackBtn" text="ย้อนกลับ" />
-      <Label layoutX="717.0" layoutY="181.0" style="-fx-background-color: #221c7d;" text="ชื่อหมวดหมู่" textFill="WHITE">
+      <Button fx:id="AddTypeBtn" layoutX="674.0" layoutY="391.0" mnemonicParsing="false" onAction="#handleAddTypeBtn" text="เพิ่มหมวดหมู่" />
+      <Label fx:id="GTLabel" layoutX="876.0" layoutY="193.0" textFill="WHITE" />
+      <Label fx:id="WTLabel" layoutX="876.0" layoutY="241.0" textFill="WHITE" />
+      <Label fx:id="PTLabel" layoutX="876.0" layoutY="288.0" textFill="WHITE" />
+      <Label fx:id="FTLabel" layoutX="876.0" layoutY="341.0" textFill="WHITE" />
+      <Button fx:id="BackBtn" layoutX="961.0" layoutY="391.0" mnemonicParsing="false" onAction="#handleBackBtn" text="ย้อนกลับ" />
+      <Label layoutX="640.0" layoutY="139.0" style="-fx-background-color: #060433; -fx-background-radius: 10;" text="ชื่อหมวดหมู่" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="TNLabel" layoutX="953.0" layoutY="190.0" text="Label" textFill="WHITE" />
+      <Label fx:id="TNLabel" layoutX="876.0" layoutY="148.0" textFill="WHITE" />
+      <TableView fx:id="selectedTypeTable" layoutX="83.0" layoutY="524.0" prefHeight="462.0" prefWidth="1114.0" />
    </children>
 </AnchorPane>

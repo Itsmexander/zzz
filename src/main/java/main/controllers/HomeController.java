@@ -61,4 +61,13 @@ public class HomeController {
             System.err.println("ให้ตรวจสอบการกำหนด route");
         }
     }
+    @FXML
+    public void handleHelpBTN(ActionEvent actionEvent){
+        try {
+            FXRouter.goTo("Help");
+        } catch (IOException e) {
+            System.err.println("ไปที่หน้า Help ไม่ได้");
+            System.err.println("ให้ตรวจสอบการกำหนด route");
+        }
+    }
 }

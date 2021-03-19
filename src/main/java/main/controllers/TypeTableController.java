@@ -10,22 +10,30 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.models.TaskData;
+import main.models.TaskList;
 import main.models.Type;
 import main.models.TypeList;
-import main.services.StringConfiguration;
-import main.services.TypeFileDataSource;
+import main.services.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class TypeTableController {
+    private TaskFileDataSource taskFileDataSource;
+    private ProjectTaskFileDataSource projectTaskFileDataSource;
+    private WeeklyTaskFileDataSource weeklyTaskFileDataSource;
+    private FTaskFileDataSource fTaskFileDataSource;
     private TypeFileDataSource typeFileDataSource;
+    private TaskList taskList;
     private TypeList typeList;
     private Type selectedType;
     private ObservableList<Type> typeObservableList;
+    private ObservableList<TaskData> taskDataObservableList;
     @FXML private TableView<Type> TypeTable;
+    @FXML private TableView<TaskData> selectedTypeTable;
     @FXML private Label TNLabel,GTLabel,WTLabel,PTLabel,FTLabel;
-    @FXML private Button AddTypeBtn,BackBtn;
+    @FXML Button AddTypeBtn,BackBtn;
 
 
     @FXML
@@ -33,6 +41,16 @@ public class TypeTableController {
         Platform.runLater((Runnable)new Runnable(){
             @Override
             public void run() {
+                taskFileDataSource = new TaskFileDataSource("data","task.csv");
+                projectTaskFileDataSource = new ProjectTaskFileDataSource("data","Ptask.csv");
+                fTaskFileDataSource = new FTaskFileDataSource("data","Ftask.csv");
+                weeklyTaskFileDataSource= new WeeklyTaskFileDataSource("data","w_task.csv");
+                taskList = taskFileDataSource.getTaskData();
+                taskList.setTaskList(taskFileDataSource.getTaskData().toList());
+                taskList.setProjectTaskList(projectTaskFileDataSource.getTaskData().toPList());
+                taskList.setForwardingTaskList(fTaskFileDataSource.getTaskData().toFList());
+                taskList.setWeeklyTaskList(weeklyTaskFileDataSource.getTaskData().toWList());
+
                 typeFileDataSource = new TypeFileDataSource("data", "type.csv");
                 typeList = typeFileDataSource.getTaskData();
 
@@ -54,6 +72,21 @@ public class TypeTableController {
         WTLabel.setText(String.valueOf(type.getWTCount()));
         PTLabel.setText(String.valueOf(type.getPTCount()));
         FTLabel.setText(String.valueOf(type.getFTCount()));
+        show();
+    }
+
+    private void show(){
+        selectedTypeTable.getColumns().clear();
+        taskDataObservableList = FXCollections.observableArrayList(taskList.allWorkInType(selectedType.getTypeName()));
+        selectedTypeTable.setItems(taskDataObservableList);
+        ArrayList<StringConfiguration> configs = new ArrayList<>();
+        configs.add(new StringConfiguration("title:ชื่องาน" , "field:taskName"));
+
+        for (StringConfiguration conf: configs) {
+            TableColumn col = new TableColumn(conf.get("title"));
+            col.setCellValueFactory(new PropertyValueFactory<>(conf.get("field")));
+            selectedTypeTable.getColumns().add(col);
+        }
     }
 
     private void showTypeData() {
